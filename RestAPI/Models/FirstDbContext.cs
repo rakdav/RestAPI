@@ -8,11 +8,13 @@ public partial class FirstDbContext : DbContext
 {
     public FirstDbContext()
     {
+        Database.EnsureCreated();
     }
 
     public FirstDbContext(DbContextOptions<FirstDbContext> options)
         : base(options)
     {
+        Database.EnsureCreated();
     }
 
     public virtual DbSet<Client> Clients { get; set; }
