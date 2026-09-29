@@ -1,4 +1,5 @@
-﻿using RestAPI.Models.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using RestAPI.Models.Abstractions;
 using RestAPI.Models.Data;
 
 namespace RestAPI.Models.Services
@@ -22,22 +23,39 @@ namespace RestAPI.Models.Services
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            bool result = DoAction(delegate ()
+            {
+                Service res = db.Services.FirstOrDefault(p => p.Code == id)!;
+                db.Services.Remove(res);
+                db.SaveChangesAsync();
+            });
+            return result;
         }
 
-        public Task<Service> Get(int id)
+        public async Task<Service> Get(int id)
         {
-            throw new NotImplementedException();
+            Service? service = await db.Services.FirstOrDefaultAsync(p => p.Code == id);
+            return service!;
         }
 
-        public Task<IEnumerable<Service>> GetAll()
+        public async Task<IEnumerable<Service>> GetAll()
         {
-            throw new NotImplementedException();
+            return await db.Services.ToListAsync();
         }
 
         public bool Update(int id, Service model)
         {
-            throw new NotImplementedException();
+            bool result = DoAction(delegate ()
+            {
+                Service res = db.Services.FirstOrDefault(p => p.Code == id)!;
+                res.Cost = model.Cost;
+                res.Name = model.Name;
+                res.Deadline = model.Deadline;
+                res.Average = model.Average;
+                db.Services.Update(res);
+                db.SaveChangesAsync();
+            });
+            return result;
         }
     }
 }
