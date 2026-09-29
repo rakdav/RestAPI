@@ -5,6 +5,8 @@ using RestAPI.Models;
 
 namespace RestAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ServiceController : ControllerBase
     {
         private readonly FirstDbContext db;
