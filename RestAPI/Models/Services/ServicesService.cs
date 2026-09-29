@@ -7,7 +7,7 @@ namespace RestAPI.Models.Services
     public class ServicesService : AbstractionService, ICommonService<Service, int>
     {
         private readonly FirstDbContext db;
-        private ServicesService(FirstDbContext _db)
+        public ServicesService(FirstDbContext _db)
         {
             this.db = _db;
         }
