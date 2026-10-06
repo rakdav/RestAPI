@@ -44,6 +44,9 @@ namespace RestAPI.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [ResponseCache(Duration =5,
+            Location =ResponseCacheLocation.Any,
+            VaryByHeader ="User-Agent")]
         public async Task<ActionResult<Service>> GetById(int id)
         {
             var res = service.Get(id).Result;

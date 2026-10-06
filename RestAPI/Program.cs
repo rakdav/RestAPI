@@ -20,8 +20,10 @@ builder.Services.AddDbContext<FirstDbContext>(opt=>opt.UseNpgsql(builder.Configu
     ));
 builder.Services.AddScoped<ICommonService<Service, int>, ServicesService>();
 builder.Services.AddCors();
+builder.Services.AddResponseCaching();
 var app = builder.Build();
 app.UseRouting();
+app.UseResponseCaching();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
