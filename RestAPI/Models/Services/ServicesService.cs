@@ -6,6 +6,7 @@ namespace RestAPI.Models.Services
 {
     public class ServicesService : AbstractionService, ICommonService<Service, int>
     {
+        private int pageSize = 10;
         private readonly FirstDbContext db;
         public ServicesService(FirstDbContext _db)
         {
@@ -56,6 +57,12 @@ namespace RestAPI.Models.Services
                 db.SaveChangesAsync();
             });
             return result;
+        }
+        public async Task<IEnumerable<Service>> GetPage(int? page)
+        {
+            return await db.Services.OrderBy(p=>p.Code).
+                Skip(((page??1)-1)*pageSize).
+                Take(pageSize).ToListAsync();
         }
     }
 }
