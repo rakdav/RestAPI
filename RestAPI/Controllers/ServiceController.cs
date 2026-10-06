@@ -51,6 +51,7 @@ namespace RestAPI.Controllers
         {
             var res = service.Get(id).Result;
             return res == null ? NotFound(new { message = "Service not found" }) : Ok(res);
+
         }
         [HttpPost]
         public async Task<ActionResult<Service>> Create([FromBody] Service serv)
